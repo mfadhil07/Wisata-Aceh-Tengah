@@ -19,6 +19,11 @@
                 <div class="flex">
                     <div class="ml-6 text-lg">
                         <h6 class="mb-2 font-semibold leading-5">
+                            Hari Buka : <span>
+                                {{ $daftar->hari }} 
+                        </h6>
+                        <hr class="w-full my-2 border-gray-300" />
+                        <h6 class="mb-2 font-semibold leading-5">
                             Jam Buka - Tutup : <span>
                                 {{ $daftar->jam }} WIB
                         </h6>
@@ -94,5 +99,16 @@
                 @endforeach
             </div>
         </div>
+        <div class="mt-3" id="mapid">
     </div>
+    <script>
+        let latLng = [4.61970103, 96.9053123];
+        var mymap = L.map('mapid').setView(latLng, 11);
+        L.tileLayer(
+            'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+                    'Imagery © <a href="https://www.mapbox.com/">Leaflet</a>',
+                id: 'mapbox/streets-v11',
+            }).addTo(mymap);
+    </script>
 @endsection

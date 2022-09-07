@@ -10,7 +10,7 @@
                 dan lain-lain.
             </p>
             <div class="mt-10 ml-4">
-                <button class="btn btn-outline"> <a href="/daftar">Objek Wisata</a> </button>
+                <button class="btn btn-outline"> <a href="http://127.0.0.1:8000/info">Objek Wisata</a> </button>
                 <button class="ml-3 btn btn-outline btn-secondary "> <a
                         href="https://id.wikipedia.org/wiki/Kabupaten_Aceh_Tengah">Kab. Aceh Tengah </a> </button>
             </div>

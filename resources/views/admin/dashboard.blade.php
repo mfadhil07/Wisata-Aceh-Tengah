@@ -3,13 +3,15 @@
 @section('isi')
     <div class="grid justify-center md:grid cols-1 lg:grid-cols-2 mr-2">
         <div class=" mt-10 ml-6">
-            <h1 class="text-7xl font-bold font-fantasy text-green-700 text-left mt-8"> WEBGIS <span class="text-black">Objek
-                    Wisata</span> Kabupaten </h1>
-            <h1 class="text-7xl font-bold font-fantasy text-green-700 text-left"> Aceh Tengah</h1>
-            <p class="text-bold font-sans mt-4 text-justify text-lg"> Beberapa objek wisata di Kabupaten Aceh Tengah adalah
-                Danau Laut Tawar, Pantan Terong (atraksi pemandangan), dan Krueng Peusangan arum jeram.</p>
+            <h1 class="text-7xl font-bold font-fantasy text-green-600 text-left mt-8"> WEBGIS <span class="text-black">Objek
+                Wisata</span> Kabupaten </h1>
+        <h1 class="text-7xl font-bold font-fantasy text-green-600 text-left"> Aceh Tengah</h1>
+        <p class="text-bold font-sans mt-4 text-justify text-lg"> Kabupaten Aceh Tengah memiliki 50 lebih objek wisata
+            andalan, 19 objek wisata Bahari, 10 objek wisata Pemandangan, 8 objek wisata Sejarah, 2 objek wisata budaya,
+            dan lain-lain.
+        </p>
             <div class="mt-10 ml-4">
-                <button class="btn btn-outline"> <a href="/a_daftar">Objek Wisata</a> </button>
+                <button class="btn btn-outline"> <a href="/a_info">Objek Wisata</a> </button>
                 <button class="ml-3 btn btn-outline btn-secondary "> <a
                         href="https://id.wikipedia.org/wiki/Kabupaten_Aceh_Tengah">Kab. Aceh Tengah </a> </button>
             </div>

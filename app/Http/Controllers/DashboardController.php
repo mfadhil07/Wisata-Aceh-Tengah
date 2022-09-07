@@ -121,6 +121,7 @@ class DashboardController extends Controller
             'jam' => 'required',
             'tiket' => 'required',
             'kategori' => 'required',
+            'hari' => 'required',
             // 'fasilitas'   => 'required',
             'img' => 'required|mimes:jpg,jpeg,png',
             'deskripsi' => 'required',
@@ -137,6 +138,7 @@ class DashboardController extends Controller
             'jam' => $request->jam,
             'tiket' => $request->tiket,
             'kategori' => $request->kategori,
+            'hari' =>$request->hari,
             'img' => $image,
             'deskripsi' => $request->deskripsi,
         ]);
@@ -262,6 +264,7 @@ class DashboardController extends Controller
             'latitude' => 'required',
             'longitude' => 'required',
             'jam' => 'required',
+            'hari' => 'required',
             'tiket' => 'required',
             'fasilitas'   => 'required',
             'kategori' => 'required',
@@ -303,6 +306,7 @@ class DashboardController extends Controller
         $daftar->latitude = $request->latitude;
         $daftar->longitude = $request->longitude;
         $daftar->jam = $request->jam;
+        $daftar->hari = $request->hari;
         DB::table('fasilitas_wisata')->where('id_lokasi', '=', $daftar->id)->delete();
         $fasilitas = $request->fasilitas;
         foreach ($fasilitas as $value) {

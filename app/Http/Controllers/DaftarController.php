@@ -171,28 +171,37 @@ class DaftarController extends Controller
     }
 
     public function json()
-    {
-        $features = Daftar::all();
-
+    {        
+        if (request('search')) {
+            $features = DB::table('daftars')
+                ->where('nama', 'like', '%' . request('search') . '%')
+                ->orWhere('kecamatan', 'like', '%' . request('search') . '%')
+                ->orWhere('desa', 'like', '%' . request('search') . '%')
+                ->orWhere('kategori', 'like', '%' . request('search') . '%')
+                ->get();
+        } else {
+            $features = DB::table('daftars')
+            ->get();
+        }
         foreach ($features as $key => $value) {
-            $features[$key] = [
+            $json_features[] = [
                 'type' => 'Feature',
                 'properties' => [
-                    'id' => $value['id'],
-                    'name' => $value['nama'],
-                    'kecamatan' => $value['kecamatan'],
-                    'desa' => $value['desa'],
-                    'kategori' => $value['kategori'],
+                    'id' => $value->id,
+                    'name' => $value->nama,
+                    'kecamatan' => $value->kecamatan,
+                    'desa' => $value->desa,
+                    'kategori' => $value->kategori,
                 ],
                 'geometry' => [
                     'type' => 'Point',
-                    'coordinates' => [$value['longitude'], $value['latitude']]
+                    'coordinates' => [$value->longitude, $value->latitude]
                 ]
             ];
         }
         $response = [
             'type' => 'FeatureCollection',
-            'features' => $features
+            'features' => $json_features
 
         ];
         return response($response, 200);

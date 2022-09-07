@@ -91,7 +91,7 @@
                 <nav class="h-screen hidden lg:block shadow-lg relative w-14 mr-4">
                     <div class="fixed flex flex-col top-0 left-0 w-18 bg-gray-100 h-full border-2 mr-6">
                         <a href="/dashboard"
-                            class=" border-b-2 border-transparent hover:border-blue-500 mx-0 sm:mx-3 mt-20 mb-3  {{ $active === 'home' ? 'active: bg-green-600' : '' }}"
+                            class=" border-b-2 border-transparent hover:border-blue-500 mx-0 sm:mx-3 mt-20 mb-3  {{ $active === 'dashboard' ? 'active: bg-green-600' : '' }}"
                             title="Home">
                             <span>
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -103,7 +103,7 @@
                             </span>
                         </a>
                         <a href="/a_maps"
-                            class="border-b-2 border-transparent dark:hover:text-gray-200 hover:border-blue-500 mx-0 sm:mx-3 mt-3 mb-3 {{ $active === 'maps' ? 'active: bg-green-600 ' : '' }}"
+                            class="border-b-2 border-transparent dark:hover:text-gray-200 hover:border-blue-500 mx-0 sm:mx-3 mt-3 mb-3 {{ $active === 'a_maps' ? 'active: bg-green-600 ' : '' }}"
                             title="Maps">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none"
@@ -114,7 +114,7 @@
                                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg></span></a>
                         <a href="/a_rute"
-                            class="border-b-2 border-transparent dark:hover:text-gray-200 hover:border-blue-500 mx-0 sm:mx-3 mt-3 mb-3 {{ $active === 'rute' ? 'active: bg-green-400 ' : '' }}"
+                            class="border-b-2 border-transparent dark:hover:text-gray-200 hover:border-blue-500 mx-0 sm:mx-3 mt-3 mb-3 {{ $active === 'a_rute' ? 'active: bg-green-400 ' : '' }}"
                             title="Rute">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -122,7 +122,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                                 </svg></span></a>
-                        <a href="/daftar"
+                        {{-- <a href="/daftar"
                             class="border-b-2 border-transparent dark:hover:text-gray-200 hover:border-blue-500 mx-0 sm:mx-3 mt-3 mb-3"
                             title="Daftar">
                             <span>
@@ -131,7 +131,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                                 </svg>
-                            </span></a>
+                            </span></a> --}}
                         <a href="/a_info"
                             class="border-b-2 border-transparent dark:hover:text-gray-200 hover:border-blue-500 mx-0 sm:mx-3 mt-3"
                             title="info">
@@ -149,7 +149,12 @@
             <div class="w-full ml-2 mt-2">
                 <div class="flex justify-between">
                     <h1 class="text-2xl font-semibold mx-2 my-2">Halaman Rute Objek Wisata</h1>
-                    <button class="mr-10 mt-2 mb-2 btn btn-outline btn-success" type="button"
+                    <div class="flex justify-items-end ml-60">
+                        <button class="btn btn-outline btn-sm mt-3 btn-primary ml-80" id="btn-getloc">
+                            Lihat Lokasi Anda 
+                    </button>
+                    </div>
+                    <button class="mr-10 mt-3 mb-2 btn-sm btn btn-outline btn-success" type="button"
                         onclick="toggleModal('modal-id')">
                         Panduan
                     </button>
@@ -208,6 +213,7 @@
 <script src="leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 {{-- control search --}}
+<script type="text/javascript" src="js/kec.js"> </script>
 <script src="leaflet-search/src/leaflet-search.js"></script>
 <script type="text/javascript">
     function toggleModal(modalID) {
@@ -217,7 +223,7 @@
         document.getElementById(modalID + "-backdrop").classList.toggle("flex");
     }
     let latLng = [4.61970103, 96.9053123];
-    var mymap = L.map('mapid').setView(latLng, 12);
+    var mymap = L.map('mapid').setView(latLng, 11);
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -231,16 +237,16 @@
 
     $.ajax({
         url: 'http://127.0.0.1:8000/json',
-        success: function(response) {
+        success: function (response) {
             const myLayer = L.geoJSON(response, {
-                onEachFeature: function(feature, layer) {
+                onEachFeature: function (feature, layer) {
                     let coord = feature.geometry.coordinates;
                     layer.bindPopup(
-                        `<h1><b> <center>  ${feature.properties.name}</center></b><center> Kec.  ${feature.properties.kecamatan} , Desa ${feature.properties.desa} </center> <center> Kategori : <b>${feature.properties.kategori}</center></b> </h1>
+                        `<h1 class="text-sm"><b> <center>  ${feature.properties.name}</center></b><center> Kec.  ${feature.properties.kecamatan} , Desa ${feature.properties.desa} </center> <center> Kategori : <b>${feature.properties.kategori}</center></b> </h1>
                         <div class="flex justify-center"> <button class='btn btn-info btn-xs keSini' data-lat='${coord[1]}' data-lng='${coord[0]}'>Ke Sini</button></div>`
                     )
                 },
-                pointToLayer: function(feature, latlng) {
+                pointToLayer: function (feature, latlng) {
                     return L.marker(latlng, {
                         icon: smallIcon
                     });
@@ -251,27 +257,90 @@
                 layer: myLayer,
                 initial: false,
                 propertyName: 'name',
-                buildTip: function(text, val) {
+                buildTip: function (text, val) {
                     return '<a href="#" class="">' + text + '<b>'
                     '</b></a>';
                 }
             }).addTo(mymap);
         }
     })
+
     let control = L.Routing.control({
         waypoints: [
             latLng
-        ]
+        ],
+        lineOptions: {
+      styles: [{color: 'blue', opacity: 1, weight: 5}]
+   }
     }).addTo(mymap);
 
-    $(document).on("click", ".keSini", function() {
+    $(document).on("click", ".keSini", function () {
         // Let latlng = [$(this).data('lat'), $(this).data('lng')];
         const lat = $(this).data('lat')
         const long = $(this).data('lng')
         const latlng = [lat, long]
-
         control.spliceWaypoints(control.getWaypoints().length - 1, 1, latlng);
     })
+
+//get Location
+$(document).on('click', '#btn-getloc', function(e) {
+    e.preventDefault()
+    if (control != null) {
+            mymap.removeControl(control);
+            control = null;
+    }
+    getLocation()
+})
+function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert('Geolocation is not supported by this browser')
+        }
+    }
+    function showPosition(position) {
+    const x = position.coords.latitude
+    const y = position.coords.longitude
+    const tt = [x, y]
+
+    control = L.Routing.control({
+        waypoints: [
+            tt
+        ],
+        lineOptions: {
+      styles: [{color: 'blue', opacity: 1, weight: 5}]
+   },
+    }).addTo(mymap);
+    }
+
+
+    var kecamatan = L.geoJSON(kecamatan, {
+    style: function(feature) {
+        switch (feature.properties.KECAMATAN) {
+            case 'Kecamatan Atu Lintang': return {color: "black"};
+            case 'Kecamatan Bebesen': return {color: "green"};
+            case 'Kecamatan Pegasing': return {color: "grey"};
+            case 'Kecamatan Bies': return {color: "green"};
+            case 'Kecamatan lut tawar': return {color: "#32CD32"};
+            case 'Kecamatan Linge': return {color: "black"};
+            case 'Kecamatan Kute Panang': return {color: "black"};
+            case 'Kecamatan Jagong Jeget': return {color: "#8b0000"};
+            case 'Kecamatan Bintang': return {color: "#00008b"};
+            case 'Kecamatan Rusip Antara': return {color: "#9400D3"};
+            case 'Kecamatan Silih Nara': return {color: "#2F4F4F"};
+            case 'Kecamatan Celala': return {color: "#4B0082"};
+            case 'Kecamatan Kebayakan': return {color: "#00FF00"};
+            case 'Kecamatan Ketol': return {color: "#808000"};
+        }
+    }
+}).addTo(mymap);
+
+
+    //getlocation
+$(document).on('click', '#btn-getloc', function(e) {
+    e.preventDefault()
+    getLocation()
+})
 </script>
 
 </html>

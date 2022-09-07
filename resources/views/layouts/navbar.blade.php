@@ -164,7 +164,7 @@
                                         Maps
                                     </span>
                                 </a>
-                                <a class="w-full font-thin uppercase text-black dark:text-gray-200 flex items-center p-4 my-2 border-transparent transition-colors duration-200 justify-start hover:text-black hover:bg-green-300 bg-gradient-to-r hover:from-white to-green-600 border-r-4 hover:border-green-500 {{ $active === 'daftar' ? 'active: bg-green-600' : ' ' }} "
+                                {{-- <a class="w-full font-thin uppercase text-black dark:text-gray-200 flex items-center p-4 my-2 border-transparent transition-colors duration-200 justify-start hover:text-black hover:bg-green-300 bg-gradient-to-r hover:from-white to-green-600 border-r-4 hover:border-green-500 {{ $active === 'daftar' ? 'active: bg-green-600' : ' ' }} "
                                     href="/daftar">
                                     <span class="text-left">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -176,7 +176,7 @@
                                     <span class="mx-4 text-sm font-normal">
                                         Objek Wisata
                                     </span>
-                                </a>
+                                </a> --}}
                                 <a class="w-full font-thin uppercase text-black dark:text-gray-200 flex items-center p-4 my-2 border-transparent transition-colors duration-200 justify-start hover:text-black hover:bg-green-300 bg-gradient-to-r hover:from-white to-green-600 border-r-4 hover:border-green-500 {{ $active === 'a_info' ? 'active: bg-green-600' : ' ' }} "
                                     href="/a_info">
                                     <span class="text-left">
@@ -237,7 +237,7 @@
                                         </span>
                                     </a>
 
-                                    <a class="w-full font-thin uppercase text-black dark:text-gray-200 flex items-center p-4 my-2 border-transparent transition-colors duration-200 justify-start hover:text-black hover:bg-green-300 bg-gradient-to-r hover:from-white to-green-600 border-r-4 hover:border-green-500 {{ $active === 'daftar' ? 'active: bg-green-600' : ' ' }} "
+                                    {{-- <a class="w-full font-thin uppercase text-black dark:text-gray-200 flex items-center p-4 my-2 border-transparent transition-colors duration-200 justify-start hover:text-black hover:bg-green-300 bg-gradient-to-r hover:from-white to-green-600 border-r-4 hover:border-green-500 {{ $active === 'daftar' ? 'active: bg-green-600' : ' ' }} "
                                         href="/daftar">
                                         <span class="text-left">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -249,7 +249,7 @@
                                         <span class="mx-4 text-sm font-normal">
                                             Objek Wisata
                                         </span>
-                                    </a>
+                                    </a> --}}
                                     <a class="w-full font-thin uppercase text-black dark:text-gray-200 flex items-center p-4 my-2 border-transparent transition-colors duration-200 justify-start hover:text-black hover:bg-green-300 bg-gradient-to-r hover:from-white to-green-600 border-r-4 hover:border-green-500 {{ $active === 'info' ? 'active: bg-green-600' : ' ' }} "
                                         href="/info">
                                         <span class="text-left">

@@ -15,7 +15,7 @@ Route::get('/', [DaftarController::class, 'home']);
 Route::get('/json', [DaftarController::class, 'json']);
 Route::get('/detail_lokasi/{id}', [DaftarController::class, 'detail_lokasi']);
 Route::get('/maps', [DaftarController::class, 'maps']);
-Route::get('/daftar', [DaftarController::class, 'index']);
+// Route::get('/daftar', [DaftarController::class, 'index']);
 Route::get('/info', [DaftarController::class, 'info']);
 Route::get('/rute', [DaftarController::class, 'rute']);
 Route::get('/det/{id}', [DaftarController::class, 'detail']);

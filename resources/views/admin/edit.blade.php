@@ -137,6 +137,19 @@
         </div>
         <div class="">
             <label class="label mt-2">
+                <span class=" label-text ml-2 font-bold">Hari Buka</span>
+            </label>
+            <input type="text" placeholder="hari Buka" name="hari" id="hari"
+                class="input input-bordered input-accent input- w-80 @error('hari') is-invalid @enderror"
+                value={{ $daftar->hari }}>
+            @error('hari')
+                <div>
+                    <label class="text-red-700">{{ $message }}</label>
+                </div>
+            @enderror
+        </div>
+        <div class="">
+            <label class="label mt-2">
                 <span class=" label-text ml-2 font-bold">Harga Tiket</span>
             </label>
             <select name="tiket" id="tiket" class="select max-w-xs select-accent w-80" value="">
@@ -215,12 +228,11 @@
 
         <div class="mt-4">
             <div class="mb-3 w-60">
-                <label for="img" class="form-label inline-block mb-2 text-gray-700"> Pilih File</label>
+                <label for="img" class="form-label inline-block mb-2 text-gray-700"> Pilih Foto</label>
                 <img name="img" class="img-preview"
-                    src=" {{ asset('/storage/'.$daftar->img) }}" alt="">
+                    src="{{asset('/storage/'.$daftar->img) }}">
                 <input name="img" onchange="previewImage()"
-                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
-                      rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="img"
+                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="img"
                     @error('img') is-invalid @enderror>
             </div>
             @error('img')
@@ -230,8 +242,7 @@
             @enderror
         </div>
         <div class="border border-dashed border-black relative mt-14 w-80 h-32">
-            <label for="img" class="form-label inline-block mb-2 text-black"> Upload foto wisata :
-                jpg,png,jpeg</label>
+            <label for="img" class="form-label inline-block mb-2 text-black"> Upload foto-foto wisata : </label>
             <input type="file" name="photos[]" id="inputImage" multiple onchange="previewImage()"
                 class="@error('image') is-invalid @enderror block w-full text-sm mt-28 text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
             @error('photos')
@@ -252,24 +263,11 @@
         </div>
     </div>
 </form>
-<div class="ml-10 mt-4">
+<div class="ml-10 mt-20">
 <label for="img" class="form-label inline-block mb-4 text-black text-lg ml-6"> Hapus Foto Wisata :
-    {{-- <div class="flex items-end mt-3 ml-3 mb-4">
-        <button class="h-11 w-20 text-lg text-white rounded-lg bg-green-600 hover:bg-green-900" type="submit">
-            <div class="flex">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 items-center mt-1 ml-1" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    <span>Data</span>
-                </svg>
-            </div>
-        </button>
-    </div> --}}
     <table class="text-sm text-left text-gray-500 dark:text-gray-400 mt-4">
         <thead class="mx-4 my-2 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th class="px-6 py-1">No</th>
                 <th class="px-6 py-1">Foto</th>
                 <th class="px-6 py-1">Aksi</th>
             </tr>
@@ -277,13 +275,11 @@
         <tbody>
             @foreach($daftar->image as $image)
                 <tr>
-                    <td class="px-6 py-4"></td>
                     <td class="px-6 py-4">
                         <img class="object-cover w-40 h-20 rounded shadow-lg mt-2"
-                            src="{{ asset('/storage/'. $image->image) }}" alt="" />
+                            src="{{ asset('/storage/'.$image->image) }}" alt="" />
                     </td>
                     <td class="px-6 py-4">
-                       
                         <a href="/deletImage/{{$image->id}}" class="btn-sm mr-2 pb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">

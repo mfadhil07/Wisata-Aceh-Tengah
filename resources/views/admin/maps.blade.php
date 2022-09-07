@@ -20,6 +20,7 @@
             height: 620px;
             width: 99%;
         }
+
         .paginate-text p {
             width: 24rem;
             margin: ;
@@ -95,7 +96,7 @@
                 <div class="flex flex-wrap">
                     <div class="w-full h-full sm:w-6/12 md:w-4/12 mt-2 ml-3">
                         <div class="relative inline-flex align-middle w-full">
-                            <button class="btn btn-info btn-xs mt-6" type="button"
+                            <button class="btn btn-info btn-sm mt-6" type="button"
                                 onclick="openDropdown(event,'dropdown-id')">
                                 Kategori
                             </button>
@@ -134,8 +135,8 @@
                     <div class="ml-2 mt-4 flex mb-20">
                         <div class="absolute border-2 w-1/4 rounded-btn mt-1">
                             <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
@@ -152,14 +153,14 @@
                 </form>
             </div>
             <div id="lokasi" class="flex flex-col ml-2 pl-1">
-                @foreach ($daftar as $item)
+                @foreach($daftar as $item)
                     <div class="h-30 border-2 border-gray-400 rounded-lg mb-2">
                         <img class="w-full object-cover px-2 py-2" style="min-width: 410px !important;"
-                            src=" {{ $item->img }}" alt="River">
+                            src="{{ asset('/storage/'. $item->img) }}">
                         <h2 class="text-2sm font-bold ml-2">{{ $item->nama }} </h2>
                         <div class="flex ml-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mt-1" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mt-1" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -168,22 +169,22 @@
                                 {{ $item->desa }}</span>
                         </div>
                         <div class="flex  ml-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg> <span class="ml-1  text-sm text-center"> Buka-Tutup : {{ $item->jam }}</span>
                         </div>
                         <div class="flex ml-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg> <span class="ml-1  text-sm text-center">Harga Tiket : {{ $item->tiket }}</span>
                         </div>
                         <div class="ml-3">
                             <p class="text-gray-900 text-2sm"> Fasilitas Wisata </p>
-                            @foreach ($item->fasilitas as $fas)
+                            @foreach($item->fasilitas as $fas)
                                 <label class="inlie-flex items-center">
                                     <input disabled type="checkbox" class="form-checkbox h-4 w-4 text-green-600"
                                         checked><span class="ml-2 text-sm text-gray-700">{{ $fas }}</span>
@@ -193,7 +194,7 @@
                         <div class="pt-0 mt-2 ml-2">
                             <div class="flex items-center">
                                 <div class="flex items-center w-24">
-                                    @for ($x = 1; $x <= $item->skor; $x++)
+                                    @for($x = 1; $x <= $item->skor; $x++)
                                         <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -201,7 +202,7 @@
                                             </path>
                                         </svg>
                                     @endfor
-                                    @for ($x = 0; $x < $item->sisa; $x++)
+                                    @for($x = 0; $x < $item->sisa; $x++)
                                         <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -210,11 +211,11 @@
                                         </svg>
                                     @endfor
                                 </div>
-                                <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-                                    {{ round($item->skor, 1) }}/ 5</p>
+                                {{-- <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                    {{ round($item->skor, 1) }}/ 5</p> --}}
                             </div>
                         </div>
-                        <div class="stat pt-0 mt-4 ml-0">
+                        <div class="stat pt-0 mt-2 ml-0">
                             <div class="flex justify-end">
                                 <!-- The button to open modal -->
                                 <label data-id="{{ $item->id }}" for="my-modal-3"
@@ -248,8 +249,7 @@
                     @csrf
                     <input type="text" class="hidden" id="id_lokasi" name="id_lokasi" />
                     <div class="w-full mt-10">
-                        <input type="range" min="1" max="5" value="1" class="range"
-                            step="1" name="skor" />
+                        <input type="range" min="1" max="5" value="1" class="range" step="1" name="skor" />
                         <div class="w-full flex justify-between text-xs px-2">
                             <span>1</span>
                             <span>2</span>
@@ -275,10 +275,12 @@
 <script src="leaflet-search/src/leaflet-search.js"></script>
 <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js" charset="utf-8"></script>
 <script type="text/javascript">
-    $(document).on("click", ".btn-voting", function() {
+    $(document).on("click", ".btn-voting", function () {
         const id_lokasi = $(this).attr("data-id")
         $("#id_lokasi").val(id_lokasi)
     })
+
+
     function openDropdown(event, dropdownID) {
         let element = event.target;
         while (element.nodeName !== "BUTTON") {
@@ -290,18 +292,21 @@
         document.getElementById(dropdownID).classList.toggle("hidden");
         document.getElementById(dropdownID).classList.toggle("block");
     }
+
     var mymap = L.map('mapid').setView([4.6170461, 96.9205841, ], 12);
+
     L.tileLayer(
         'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
                 'Imagery © <a href="https://www.mapbox.com/">Leaflet</a>',
             id: 'mapbox/streets-v11',
         }).addTo(mymap);
+
     $.ajax({
-        url: 'http://dhil.test/json',
-        success: function(response) {
+        url: 'http://127.0.0.1:8000/json',
+        success: function (response) {
             const myLayer = L.geoJSON(response, {
-                onEachFeature: function(feature, layer) {
+                onEachFeature: function (feature, layer) {
                     layer.bindPopup(
                         `<h1><b>
         <center> ${feature.properties.name} </center>
@@ -311,7 +316,7 @@
 </h1>`
                     )
                 },
-            }).on('click', function(e) {
+            }).on('click', function (e) {
                 const id_lokasi = e.layer.feature.properties.id;
                 getDetailLokasi(id_lokasi)
                 $('.paginate-text').addClass('hidden')
@@ -321,13 +326,14 @@
                 layer: myLayer,
                 initial: false,
                 propertyName: 'name',
-                buildTip: function(text, val) {
+                buildTip: function (text, val) {
                     return '<a href="#" class="">' + text + '<b>'
                     '</b></a>';
                 }
             }).addTo(mymap);
         }
     })
+
     function printRating(skor) {
         let html = ''
         for (let i = 1; i <= skor; i++) {
@@ -340,9 +346,10 @@
         }
         return html
     }
+
     function printSisa(sisa) {
         let html = ''
-        for (let i = 1; i <= sisa; i++) {
+        for (let i = 0; i < sisa; i++) {
             html += `<svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -352,14 +359,16 @@
         }
         return html
     }
+
     function getDetailLokasi(id) {
         $.ajax({
-            url: 'http://dhil.test/detail_lokasi/' + id,
-            success: function(response) {
+            url: 'http://127.0.0.1:8000/detail_lokasi/' + id,
+            success: function (response) {
                 const lokasi = document.querySelector("#lokasi");
                 lokasi.innerHTML = ` <div class="mt-2 h-30 border-2 border-gray-400 rounded-lg pr-4">
-    <img style="min-width: 410px !important;" class="min-h-72 object-cover px-2 py-2" src=" ${ response.img }" alt="River">
+    <img style="min-width: 400px !important;" class="min-h-72 object-cover px-2 py-2" src="/storage/${ response.img }">
     <h2 class="text-2sm font-bold mt-1 ml-2"> ${response.nama} </h2>
+
     <div class="flex ml-2">
         <span class="ml-1 text-sm"> Kecamatan ${response.kecamatan}, Desa ${response.desa} </span>
     </div>
@@ -379,12 +388,10 @@
                                     ${printRating(response.skor)}
                                     ${printSisa(response.sisa)}
                                 </div>
-                                <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-                                   ${Math.floor(response.skor)}/5</p>
                             </div>
                 </div>
     <div class="stat mt-0 ">
-        <div class="stat pt-0 mt-4 ml-10">
+        <div class="stat pt-0 mt-2 ml-10">
                             <div class="flex justify-end">
                                 <!-- The button to open modal -->
                                 <label data-id="${response.id}" for="my-modal-3"

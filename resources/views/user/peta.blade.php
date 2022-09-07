@@ -19,11 +19,10 @@
         <script src="leaflet-routing/dist/leaflet-routing-machine.js"></script>
     <style>
         #mapid {
-            /* position: fixed !important; */
             height: 580px;
             width: 100%;
-  
         }
+
         .paginate-text p {
             width: 24rem;
             margin: ;
@@ -94,11 +93,12 @@
                 </a>
             </div>
         </nav>
-        <div class="flex flex-col md:flex-row lg:w-full">
+        <div class="flex flex-col md:flex-row">
             <div class="order-last md:order-first w-100 md:w-1/3">
+                {{-- modal --}}
                 <div class="flex flex-row">
                     <div class="flex flex-wrap">
-                        <div class="w-full h-full sm:w-6/12 md:w-4/12 mt-2 ml-3">
+                        <div class="w-full h-full sm:w-6/12 md:w-4/12 mt-2">
                             <div class="relative inline-flex align-middle w-full ml-1">
                                 <button class="btn btn-info btn-sm mt-6" type="button"
                                     onclick="openDropdown(event,'dropdown-id')">
@@ -106,27 +106,27 @@
                                 </button>
                                 <div class="hidden bg-white  text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
                                     style="min-width:12rem" id="dropdown-id">
-                                    <a href
+                                    <a href="#pablo"
                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
                                         Bahari / Air
                                     </a>
-                                    <a href
+                                    <a href="#pablo"
                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
                                         Pemandangan
                                     </a>
-                                    <a href
+                                    <a href="#pablo"
                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
                                         Ziarah
                                     </a>
-                                    <a href
+                                    <a href="#pablo"
                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
                                         Budaya
                                     </a>
-                                    <a href
+                                    <a href="#pablo"
                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
                                         Kuliner
                                     </a>
-                                    <a href
+                                    <a href="#pablo"
                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700">
                                         Pertanian
                                     </a>
@@ -156,17 +156,13 @@
                         </div>
                     </form>
                 </div>
-                <div id="lokasi" class="ml-3" >
-                @if(count($daftar) =='null')
-                    <div class="mt-2 h-50 w-30 border-2 border-black rounded-lg pr-3">
-                    <p class="font-semibold">Tidak Ada Objek Wisata Yang Di Temukan</p>
-                    </div>
-                @else
+                {{-- end modal --}}
+                <div id="lokasi" class="ml-3">
                         @foreach ($daftar as $item)
-                            <div class="mt-2 h-30 border-2 border-gray-500 rounded-lg pr-3" style="width: 350px;">
+                            <div class="mt-2 h-30 border-2 border-gray-500 rounded-lg pr-3">
                                 <img style="width:690px !important;" class="px-1 py-1 ml-1"
                                     src=" {{ asset('/storage/'. $item->img) }}">
-                                <h2 class="text-2sm font-bold ml-4">{{ $item->nama }}</h2>
+                                <h2 class="text-2sm font-bold ml-4">{{ $item->nama }} </h2>
                                 <div class="flex ml-3">
                                     <span class="ml-1 text-sm">Desa : {{ $item->desa }} , Kec
                                         {{ $item->kecamatan }}</span>
@@ -235,16 +231,16 @@
                                 </div>
                             </div>
                         @endforeach
-                @endif
+                    {{-- @endif --}}
                 </div>
                 <div class="my-1 mt-12 mr-3 paginate-text">
                     {{ $daftar->links() }}
                 </div>
             </div>
             <div class="order-first md:order-last w-full md:w-2/3 md:ml-6 mt-2">
-                <div class="justify-end">
-                    <button class="btn btn-outline btn-sm mt-3 dariSini btn-primary" id="btn-getloc">
-                        Mulai dari Posisi Anda 
+                <div>
+                    <button class="btn btn-outline btn-sm mt-3 btn-primary" id="btn-getloc">
+                        Lihat Lokasi Anda 
                     </button>
                     <button class="mr-10 mt-3 mb-2 btn btn-outline btn-success btn-sm" type="button"
                     onclick="toggleModal('modal-id')">
@@ -278,6 +274,7 @@
                                     2. Cari tujuan dengan keyword nama objek wisata atau pilih tujuan di marker merah pada peta <br>
                                     3. Klik marker merah akan muncul pop up, dan tekan Pilih Ke Sini<br>
                                     4. Selesai <br>
+
                                 </p>
                             </div>
                             <!--footer-->
@@ -292,8 +289,8 @@
                     </div>
                 </div>
                 </div>
-                <div class="mt-2 ">
-                    <div class="z-10" style="position:relative; height: 580px; width: 100%;"  id="mapid">
+                <div class="mt-2">
+                    <div class="fixed" id="mapid">
                 </div>
                 </div>
             </div>
@@ -342,54 +339,14 @@
         iconUrl: 'icon/icon.png'
     });
 
-    let control = L.Routing.control({
-        waypoints: [
-            latLng
-        ],
-        lineOptions: {
-      styles: [{color: 'blue', opacity: 1, weight: 5}]
-   }
-    }).addTo(mymap);
-
-    $(document).on("click", ".keSini", function () {
-        // Let latlng = [$(this).data('lat'), $(this).data('lng')];
-        const lat = $(this).data('lat')
-        const long = $(this).data('lng')
-        const latlng = [lat, long]
-        control.spliceWaypoints(control.getWaypoints().length - 1, 1, latlng);
-    })
-
-//get Location
-$(document).on('click', '#btn-getloc', function(e) {
-    e.preventDefault()
-    if (control != null) {
-            mymap.removeControl(control);
-            control = null;
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const kategori = urlParams.get('search')
+    let query = ''
+    if(kategori != null) {
+        query = `?search=${kategori}`
     }
-    getLocation()
-})
-function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            alert('Geolocation is not supported by this browser')
-        }
-    }
-    function showPosition(position) {
-    const x = position.coords.latitude
-    const y = position.coords.longitude
-    const tt = [x, y]
-
-    control = L.Routing.control({
-        waypoints: [
-            tt
-        ],
-        lineOptions: {
-      styles: [{color: 'blue', opacity: 1, weight: 5}]
-   },
-    }).addTo(mymap);
-    }
-
+    
 var kecamatan = L.geoJSON(kecamatan, {
     style: function(feature) {
         switch (feature.properties.KECAMATAN) {
@@ -411,14 +368,6 @@ var kecamatan = L.geoJSON(kecamatan, {
     }
 }).addTo(mymap);
 
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const kategori = urlParams.get('search')
-    let query = ''
-    if(kategori != null) {
-        query = `?search=${kategori}`
-    }
-    
     $.ajax({
         url: 'http://127.0.0.1:8000/json' + query,
         success: function (response) {
@@ -435,6 +384,7 @@ var kecamatan = L.geoJSON(kecamatan, {
                         icon: smallIcon
                     });
                 },
+                
             }).on('click', function (e) {
                 const id_lokasi = e.layer.feature.properties.id;
                 getDetailLokasi(id_lokasi)
@@ -453,6 +403,20 @@ var kecamatan = L.geoJSON(kecamatan, {
         }
     })
 
+    let control = L.Routing.control({
+        waypoints: [
+            latLng
+        ]
+    }).addTo(mymap);
+
+    $(document).on("click", ".keSini", function () {
+        // Let latlng = [$(this).data('lat'), $(this).data('lng')];
+        const lat = $(this).data('lat')
+        const long = $(this).data('lng')
+        const latlng = [lat, long]
+
+        control.spliceWaypoints(control.getWaypoints().length - 1, 1, latlng);
+    })
     function printRating(skor) {
         let html = ''
         for (let i = 1; i <= skor; i++) {
@@ -483,24 +447,17 @@ var kecamatan = L.geoJSON(kecamatan, {
             url: 'http://127.0.0.1:8000/detail_lokasi/' + id,
             success: function(response) {
                 const lokasi = document.querySelector("#lokasi");
-                lokasi.innerHTML = ` <div class="mt-2 h-30 border-2 border-gray-400 rounded-lg pr-3" style="width: 350px;">
-                                    <img style="width:690px !important;" class="px-1 py-2 ml-2" src="/storage/${ response.img }" >
-                                    <h2 class="text-2sm font-bold mt-1 ml-4"> ${response.nama} </h2>
-                                    <div class="flex ml-3">
-                                        <span class="ml-1 text-sm"> Desa ${response.desa}, Kec. ${response.kecamatan} </span>
+                lokasi.innerHTML = ` <div class="mt-2 h-15 border-2 border-gray-400 rounded-lg pr-4">
+                                    <img style="width:700px !important;" class="px-1 py-2 ml-2" src="/storage/${ response.img }" >
+                                    <h2 class="text-2sm font-bold mt-1 ml-2"> ${response.nama} </h2>
+                                    <div class="flex ml-2">
+                                        <span class="ml-1 text-sm"> Kecamatan ${response.kecamatan}, Desa ${response.desa} </span>
                                     </div>
-                                    <div class="flex  ml-3">
-                                        <span class="ml-1  text-sm text-center"> Hari Buka : ${response.hari}</span>
-                                    </div>
-                                    <div class="flex  ml-3">
+                                    <div class="flex  ml-2">
                                         <span class="ml-1  text-sm text-center"> Buka : ${response.jam} WIB</span>
                                     </div>
-                                    <div class="flex ml-3">
-                                        <span class="ml-1  text-sm text-center"> Harga Tiket Rp.${response.tiket} / orang</span>
-                                    </div>
-                                    <div class="flex ml-3">
-                                        <span class=" ml-1 text-sm text-center">Kategori Wisata: </span>
-                                        <button class="ml-1 btn btn-info btn-xs">${response.kategori}</button>
+                                    <div class="flex ml-2">
+                                        <span class="ml-1  text-sm text-center"> Rp.${response.tiket} / orang</span>
                                     </div>
                                     <div class="ml-3 mt-0">
                                         <p class="text-gray-900  text-2sm"> Fasilitas Wisata </p>
@@ -533,6 +490,29 @@ var kecamatan = L.geoJSON(kecamatan, {
                     `
             }
         })
+    }
+    $(document).on('click', '#btn-getloc', function(e) {
+    e.preventDefault()
+    getLocation()
+})
+    //get location
+function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert('Geolocation is not supported by this browser')
+        }
+    }
+    function showPosition(position) {
+    const x = position.coords.latitude
+    const y = position.coords.longitude
+    const tt = [x, y]
+
+  let control = L.Routing.control({
+        waypoints: [
+            tt
+        ]
+    }).addTo(mymap);
     }
 
     $(document).on('click', '.btn-rute', function(e) {
