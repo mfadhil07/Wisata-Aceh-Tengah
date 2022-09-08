@@ -28,6 +28,9 @@
         }
     </style>
     <title> {{ $title }}</title>
+    <script>
+        const base_url = "{{ url('') }}"
+    </script>
 </head>
 
 <body>
@@ -303,7 +306,7 @@
         }).addTo(mymap);
 
     $.ajax({
-        url: 'http://127.0.0.1:8000/json',
+        url: `${base_url}/json`,
         success: function (response) {
             const myLayer = L.geoJSON(response, {
                 onEachFeature: function (feature, layer) {

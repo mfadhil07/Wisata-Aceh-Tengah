@@ -171,7 +171,7 @@ class DaftarController extends Controller
     }
 
     public function json()
-    {        
+    {
         if (request('search')) {
             $features = DB::table('daftars')
                 ->where('nama', 'like', '%' . request('search') . '%')
@@ -181,7 +181,7 @@ class DaftarController extends Controller
                 ->get();
         } else {
             $features = DB::table('daftars')
-            ->get();
+                ->get();
         }
         foreach ($features as $key => $value) {
             $json_features[] = [
@@ -244,46 +244,47 @@ class DaftarController extends Controller
     public function detail($id)
     {
         $daftar = daftar::find($id);
-        foreach ($daftar as $value) {
-            $arr = [];
-            $fasilitas = DB::table('fasilitas_wisata')
-                ->select('fasilitas.id', 'fasilitas.fasilitas', 'fasilitas_wisata.id_lokasi')
-                ->join('fasilitas', 'fasilitas_wisata.id_fasilitas', '=', 'fasilitas.id')
-                ->where('fasilitas_wisata.id_lokasi', '=', $daftar->id)
-                ->get();
-            foreach ($fasilitas as $fas) {
-                array_push($arr, $fas->fasilitas);
-            }
-            $arr_image = [];
-            $image = DB::table('image')
-                ->join('daftars', 'image.id_lokasi', '=', 'daftars.id')
-                ->select('image.*',)
-                ->where('image.id_lokasi', '=', $daftar->id)
-                ->get();
-            foreach ($image as $img) {
-                array_push($arr_image, $img->image);
-            }
-            $daftar->image = $arr_image;
-            $votes = DB::table('votings')
-                ->select('skor')
-                ->where('id_wisata', '=', $daftar->id)
-                ->get();
-            $jumlah_votes = count($votes);
-            $total_skor = 0;
-            foreach ($votes  as $vote) {
-                $total_skor += $vote->skor;
-            }
-            if ($jumlah_votes == 0) {
-                $jumlah_votes = 1;
-            }
-            $skor = $total_skor / $jumlah_votes;
-            $sisa = 5 - $skor;
-            $daftar->fasilitas = $arr;
-            $daftar->skor = $skor;
-            $daftar->sisa = $sisa;
+
+        $arr = [];
+        $fasilitas = DB::table('fasilitas_wisata')
+            ->select('fasilitas.id', 'fasilitas.fasilitas', 'fasilitas_wisata.id_lokasi')
+            ->join('fasilitas', 'fasilitas_wisata.id_fasilitas', '=', 'fasilitas.id')
+            ->where('fasilitas_wisata.id_lokasi', '=', $daftar->id)
+            ->get();
+        foreach ($fasilitas as $fas) {
+            array_push($arr, $fas->fasilitas);
         }
+        $arr_image = [];
+        $image = DB::table('image')
+            ->join('daftars', 'image.id_lokasi', '=', 'daftars.id')
+            ->select('image.*')
+            ->where('image.id_lokasi', '=', $daftar->id)
+            ->get();
+        foreach ($image as $img) {
+            array_push($arr_image, $img->image);
+        }
+        $daftar->image = $arr_image;
+        $votes = DB::table('votings')
+            ->select('skor')
+            ->where('id_wisata', '=', $daftar->id)
+            ->get();
+        $jumlah_votes = count($votes);
+        $total_skor = 0;
+        foreach ($votes  as $vote) {
+            $total_skor += $vote->skor;
+        }
+        if ($jumlah_votes == 0) {
+            $jumlah_votes = 1;
+        }
+        $skor = $total_skor / $jumlah_votes;
+        $sisa = 5 - $skor;
+        $daftar->fasilitas = $arr;
+        $daftar->skor = $skor;
+        $daftar->sisa = $sisa;
+
+        // dd($daftar);
         // $image = Image::all();
-        return view( 'detail', [
+        return view('detail', [
             'title' => 'Detail Objek Wisata',
             'active' => 'info',
             // 'images' => $image,

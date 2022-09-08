@@ -101,7 +101,7 @@
     </div>
 </div>
 <div class="mt-4">
-    <div id="mapid"> </div>
+    <div id="mapid" data-longitude="{{ $daftar->longitude }}" data-latitude="{{ $daftar->latitude }}"></div>
 </div>
 
 @endsection
