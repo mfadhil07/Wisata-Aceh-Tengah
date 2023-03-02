@@ -81,6 +81,11 @@
                 <hr class="w-full my-4 border-gray-300" />
             </div>
         </div>
+        <div>
+            <p class="text-base md:text-lg font-semibold">
+                 Link Objek Wisata : {{ $daftar->link }}
+            </p>
+        </div>
         <div class="flex">
             <div class="ml-6 text-lg">
                 <h6 class="mb-2 font-semibold leading-5">Deskripsi :</h6>

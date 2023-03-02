@@ -14,6 +14,7 @@
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
     <link rel="stylesheet" href="leaflet-search/src/leaflet-search.css" />
+    <link rel="stylesheet" href="{{ asset('leaflet-compass-master/src/leaflet-compass.css') }}" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="leaflet-routing/dist/leaflet-routing-machine.js"></script>
@@ -35,7 +36,7 @@
 
 <body>
     <section class="flex flex-row">
-        <nav class="h-screen hidden lg:block shadow-lg relative w-14 mr-4">
+        <nav class="h-screen hidden lg:block shadow-lg relative w-14 pr-14">
             <div class="fixed flex flex-col top-0 left-0 w-18 bg-gray-100 h-full border-2 mr-6">
                 <a href="/"
                     class=" border-b-2 border-transparent hover:border-blue-500 mx-0 sm:mx-3 mt-20 mb-3  {{ $active === 'home' ? 'active: bg-green-600' : '' }}"
@@ -95,7 +96,7 @@
             </div>
         </nav>
         <div class="flex flex-col md:flex-row lg:w-full">
-            <div class="order-last md:order-first w-100 md:w-1/3">
+            <div class="order-last md:order-first w-100  md:w-1/4 md:mr-14">
                 <div class="flex flex-row">
                     <div class="flex flex-wrap">
                         <div class="w-full h-full sm:w-6/12 md:w-4/12 mt-2 ml-3">
@@ -250,6 +251,9 @@
                     onclick="toggleModal('modal-id')">
                     Panduan
                 </button>
+                {{-- <div class="justify-end">
+                    <p class="font-bold">Jika Anda Menekan Marker di Map, Maka akan muncul Informasi tentang Objek wisata tersebut</p>
+                </div> --}}
                 <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center"
                     id="modal-id">
                     <div class="relative mt-20 w-auto my-6 mx-auto max-w-3xl">
@@ -274,9 +278,9 @@
                             <!--body-->
                             <div class="relative p-6 flex-auto">
                                 <p class="my-4 text-slate-500 text-lg leading-relaxed">
-                                    1. Tentukan lokasi anda saat ini dengan klik *lihat lokasi anda* dan pindahkan *Marker biru * pada peta <br>
-                                    2. Cari tujuan dengan keyword nama objek wisata atau pilih tujuan di marker merah pada peta <br>
-                                    3. Klik marker merah akan muncul pop up, dan tekan Pilih Ke Sini<br>
+                                    1. Tentukan lokasi anda dengan menekan tombol mulai dari posisi anda atau mengeser marker biru yang ada di peta.<br>
+                                    2. Anda bisa mencari tujuan dengan mencari  nama Objek Wisata, Desa, Kecamatan atau Kategori Wisata dan menekan tombol rute untuk melakukan Routing dari lokasi Anda <br>
+                                    3. Anda juga bisa mengklik marker merah akan muncul pop up, dan tekan pilih kesini untuk melakukan Rute.<br>
                                     4. Selesai <br>
                                 </p>
                             </div>
@@ -293,7 +297,7 @@
                 </div>
                 </div>
                 <div class="mt-2 ">
-                    <div class="z-10" style="position:relative; height: 580px; width: 100%;"  id="mapid">
+                    <div class="z-10" style="position:relative; height: 580px; width: 96%;"  id="mapid">
                 </div>
                 </div>
             </div>
@@ -304,6 +308,7 @@
 <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js" charset="utf-8"></script>
 <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 <script src="leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+<script src="{{ asset('leaflet-compass-master/src/leaflet-compass.js')}}"></script>
 <script type="text/javascript" src="js/kec.js"> </script>
 
 <script>
@@ -342,6 +347,7 @@
         iconUrl: 'icon/icon.png'
     });
 
+//rute
     let control = L.Routing.control({
         waypoints: [
             latLng
@@ -351,14 +357,20 @@
    }
     }).addTo(mymap);
 
+    let circle = L.circle([4.61270103, 96.923123], 
+    {radius: 2000}).addTo(mymap);
+
     $(document).on("click", ".keSini", function () {
-        // Let latlng = [$(this).data('lat'), $(this).data('lng')];
         const lat = $(this).data('lat')
         const long = $(this).data('lng')
         const latlng = [lat, long]
         control.spliceWaypoints(control.getWaypoints().length - 1, 1, latlng);
     })
+    //compass
+    var comp = new L.Control.Compass({autoActive: true, showDigit:true});
+    mymap.addControl(comp);
 
+  
 //get Location
 $(document).on('click', '#btn-getloc', function(e) {
     e.preventDefault()
@@ -426,8 +438,11 @@ var kecamatan = L.geoJSON(kecamatan, {
                 onEachFeature: function (feature, layer) {
                     let coord = feature.geometry.coordinates;
                     layer.bindPopup(
-                        `<h1 class="text-sm"><b> <center>  ${feature.properties.name}</center></b><center> Kec.  ${feature.properties.kecamatan} , Desa ${feature.properties.desa} </center> <center> Kategori : <b>${feature.properties.kategori}</center></b> </h1>
-                        <div class="flex justify-center"> <button class='btn btn-info btn-xs keSini' data-lat='${coord[1]}' data-lng='${coord[0]}'>Ke Sini</button></div>`
+                        `<h1 class="text-sm"><b> <center>  ${feature.properties.name}</center></b><center> Kec.  
+                            ${feature.properties.kecamatan} , Desa ${feature.properties.desa} </center> <center> Kategori :
+                          <b>${feature.properties.kategori}</center></b> </h1>
+                        <div class="flex justify-center"> <button class='btn btn-info btn-xs keSini' data-lat='${coord[1]}' 
+                            data-lng='${coord[0]}'>Ke Sini</button></div>`
                     )
                 },
                 pointToLayer: function (feature, latlng) {
@@ -440,6 +455,7 @@ var kecamatan = L.geoJSON(kecamatan, {
                 getDetailLokasi(id_lokasi)
                 $('.paginate-text').addClass('hidden')
             }).addTo(mymap)
+            
             // control Search
             L.control.search({
                 layer: myLayer,

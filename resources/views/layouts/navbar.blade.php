@@ -19,11 +19,11 @@
                                         class="flex items-center w-64 h-12 pl-3 focus:outline-none bg-gray-300 hover:bg-gray-300 hover:rounded-md
                                                 type="button"
                                         onclick="openDropdown(event,'dropdown-example-1')">
-                                        <div class="avatar">
+                                        {{-- <div class="avatar">
                                             <div class=" rounded-box w-10 h-10">
                                                 <img src="https://www.hyperui.dev/photos/man-5.jpeg ">
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div>
                                             <p class="flex ml-3 font-bold">Admin</p>
                                         </div>
@@ -39,9 +39,9 @@
                                     <div class="hidden bg-white w-full text-base z-50 float-right py-2 list-none dropdown-right text-right rounded shadow-lg mt-1"
                                         style="min-width: 12rem" id="dropdown-example-1">
                                         <ul class="bg-gray-400 w-full">
-                                            <li class="px-2 py-3 border-b hover:bg-green-400"><a href="dashboard/profile">My
+                                            {{-- <li class="px-2 py-3 border-b hover:bg-green-400"><a href="dashboard/profile">My
                                                     Profile</a>
-                                            </li>
+                                            </li> --}}
                                             </li>
                                             <li class="px-2 py-3 hover:bg-green-400"><a href="/logout">Log out</a></li>
                                         </ul>

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
     <link rel="stylesheet" href="leaflet-search/src/leaflet-search.css" />
+<link rel="stylesheet" href="{{ asset('leaflet-compass-master/src/leaflet-compass.css') }}" />
     <script src="leaflet-routing/dist/leaflet-routing-machine.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -147,14 +148,14 @@
                 </nav>
             @endif
             <div class="w-full ml-2 mt-2">
-                <div class="flex justify-between">
-                    <h1 class="text-2xl font-semibold mx-2 my-2">Halaman Rute Objek Wisata</h1>
-                    <div class="flex justify-items-end ml-60">
-                        <button class="btn btn-outline btn-sm mt-3 btn-primary ml-80" id="btn-getloc">
-                            Lihat Lokasi Anda 
-                    </button>
-                    </div>
-                    <button class="mr-10 mt-3 mb-2 btn-sm btn btn-outline btn-success" type="button"
+                <div class="flex justify-start">
+                    <h1 class="text-2xl font-semibold mx-2 ml-2">Halaman Rute Objek Wisata</h1>
+                    <div class="flex justify-items-start mt-1 mb-2 mx-2 ml-96">
+                        <button class="btn btn-outline btn-sm mt-3 btn-primary" id="btn-getloc">
+                                Lihat Lokasi Anda 
+                        </button>   
+                     </div>
+                    <button class="mr-10 mt-4 mb-2  btn btn-outline btn-success btn-sm" type="button"
                         onclick="toggleModal('modal-id')">
                         Panduan
                     </button>
@@ -211,6 +212,7 @@
 <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 <script src="leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+<script src="{{ asset('leaflet-compass-master/src/leaflet-compass.js')}}"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 {{-- control search --}}
 <script type="text/javascript" src="js/kec.js"> </script>
@@ -312,7 +314,9 @@ function getLocation() {
    },
     }).addTo(mymap);
     }
-
+//compass
+var comp = new L.Control.Compass({autoActive: true, showDigit:true});
+    mymap.addControl(comp);
 
     var kecamatan = L.geoJSON(kecamatan, {
     style: function(feature) {

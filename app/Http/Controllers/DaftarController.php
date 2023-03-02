@@ -40,11 +40,6 @@ class DaftarController extends Controller
             foreach ($fasilitas as $fas) {
                 array_push($arr, $fas->fasilitas);
             }
-            $pengunjung = DB::table('pengunjung')
-                ->select('pengunjung', 'pengunjung',)
-                ->where('pengunjung.id_lokasi', '=', $value->id)
-                ->sum('pengunjung.total');
-            $value->pengunjung = $pengunjung;
             $votes = DB::table('votings')
                 ->select('skor')
                 ->where('id_wisata', '=', $value->id)
@@ -72,25 +67,7 @@ class DaftarController extends Controller
             'pemandangan' => $pemandangan
         ]);
     }
-    public function index()
-    {
-        $daftar = Daftar::latest();
-        if (request('search')) {
-            $daftar = DB::table('daftars')
-                ->where('nama', 'like', '%' . request('search') . '%')
-                ->orWhere('kecamatan', 'like', '%' . request('search') . '%')
-                ->orWhere('kategori', 'like', '%' . request('search') . '%')
-                ->orWhere('desa', 'like', '%' . request('search') . '%')
-                ->orWhere('kategori', 'like', '%' . request('search') . '%');
-        }
-        return view('daftar', [
-            'title' => 'Daftar Wisata Aceh Tengah',
-            'active' => 'daftar',
-            'daftar' => $daftar->paginate(20),
-            //          Daftar::with(['namatabel'],[namatabel])->get() Eagel Loading
-        ]);
-    }
-
+   
     public function maps()
     {
         $daftar = DB::table('daftars')

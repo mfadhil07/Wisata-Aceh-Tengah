@@ -21,6 +21,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
+    
+
         $daftar = Daftar::latest();
         if (request('search')) {
             $daftar->where('nama', 'like', '%' . request('search') . '%')
@@ -124,6 +126,7 @@ class DashboardController extends Controller
             'hari' => 'required',
             // 'fasilitas'   => 'required',
             'img' => 'required|mimes:jpg,jpeg,png',
+            // 'link' =>'',
             'deskripsi' => 'required',
         ]);
         $file_name = $request->img->getClientOriginalName();
@@ -139,6 +142,7 @@ class DashboardController extends Controller
             'tiket' => $request->tiket,
             'kategori' => $request->kategori,
             'hari' =>$request->hari,
+            'link' =>$request->link,
             'img' => $image,
             'deskripsi' => $request->deskripsi,
         ]);
@@ -202,58 +206,58 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function tambah_pengunjung($id)
-    {
-        $pengunjung = DB::table('pengunjung')
-            ->where('id_lokasi', '=', $id)
-            ->sum('pengunjung.total');
-        if ($pengunjung) {
-            $total = $pengunjung;
-        } else {
-            $total = 0;
-        }
-        return view('admin.addpengunjung', [
-            'title' => 'Tambah Pengunjung',
-            'active' => 'a_daftar',
-            'total' => $total,
-            'id_lokasi' => $id,
-        ]);
-    }
+    // public function tambah_pengunjung($id)
+    // {
+    //     $pengunjung = DB::table('pengunjung')
+    //         ->where('id_lokasi', '=', $id)
+    //         ->sum('pengunjung.total');
+    //     if ($pengunjung) {
+    //         $total = $pengunjung;
+    //     } else {
+    //         $total = 0;
+    //     }
+    //     return view('admin.addpengunjung', [
+    //         'title' => 'Tambah Pengunjung',
+    //         'active' => 'a_daftar',
+    //         'total' => $total,
+    //         'id_lokasi' => $id,
+    //     ]);
+    // }
 
-    public function update_pengunjung(Request $request)
-    {
+    // public function update_pengunjung(Request $request)
+    // {
 
-        $request->validate([
-            'jumlah' => 'required',
-            'tahun' => 'required'
-        ]);
+    //     $request->validate([
+    //         'jumlah' => 'required',
+    //         'tahun' => 'required'
+    //     ]);
 
-        $pengunjung = DB::table('pengunjung')
-            ->select('*')
-            ->where([
-                ['id_lokasi', '=', $request->id_lokasi],
-                ['tahun', '=', $request->tahun]
-            ])
-            ->get()->first();
-        if ($pengunjung) {
-            $jumlah = $request->jumlah;
-            $total = $pengunjung->total;
-            DB::table('pengunjung')
-                ->where([
-                    ['id_lokasi', '=', $request->id_lokasi],
-                    ['tahun', '=', $request->tahun]
-                ])
-                ->update(['total' => $jumlah + $total]);
-        } else {
-            Pengunjung::create([
-                'total' => $request->jumlah,
-                'tahun' => $request->tahun,
-                'id_lokasi' => $request->id_lokasi,
-            ]);
-        }
+    //     $pengunjung = DB::table('pengunjung')
+    //         ->select('*')
+    //         ->where([
+    //             ['id_lokasi', '=', $request->id_lokasi],
+    //             ['tahun', '=', $request->tahun]
+    //         ])
+    //         ->get()->first();
+    //     if ($pengunjung) {
+    //         $jumlah = $request->jumlah;
+    //         $total = $pengunjung->total;
+    //         DB::table('pengunjung')
+    //             ->where([
+    //                 ['id_lokasi', '=', $request->id_lokasi],
+    //                 ['tahun', '=', $request->tahun]
+    //             ])
+    //             ->update(['total' => $jumlah + $total]);
+    //     } else {
+    //         Pengunjung::create([
+    //             'total' => $request->jumlah,
+    //             'tahun' => $request->tahun,
+    //             'id_lokasi' => $request->id_lokasi,
+    //         ]);
+    //     }
 
-        return redirect('/a_daftar')->with('pesan', 'Berhasil Menambah pengunjung');
-    }
+    //     return redirect('/a_daftar')->with('pesan', 'Berhasil Menambah pengunjung');
+    // }
 
     public function update(Request $request, $id)
     {

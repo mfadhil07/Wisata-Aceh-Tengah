@@ -33,7 +33,7 @@
 <body>
     <div class="flex flex-row">
         @include('layouts.navbar')
-        <div class="w-full mr-2">
+        <div class="w-full">
             @yield('isi')
         </div>
     </div>
@@ -63,7 +63,7 @@
     const defaultLongitude = (document.getElementById('mapid').dataset.longitude) ? parseFloat(document.getElementById('mapid').dataset.longitude) : 4.61270103;
     const defaultLatitude = (document.getElementById('mapid').dataset.latitude) ? parseFloat(document.getElementById('mapid').dataset.latitude) : 96.923123;
 
-    var map = L.map('mapid').setView([defaultLatitude, defaultLongitude], 18);
+    var map = L.map('mapid').setView([defaultLatitude, defaultLongitude], 17);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', ).addTo(map);
 
     $.ajax({
@@ -73,10 +73,9 @@
                 onEachFeature: function(feature, layer) {
                     let coord = feature.geometry.coordinates;
                     layer.bindPopup(
-                        `<h1 class="text-sm"><b> <center>  ${feature.properties.name}</center></b>`
+                        `<h1 class="text-sm"><b> <center> ${feature.properties.name}</center></b>`
                     )
                 },
-
             }).addTo(map);
         }
     })

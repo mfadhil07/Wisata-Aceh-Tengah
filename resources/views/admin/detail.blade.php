@@ -81,6 +81,12 @@
                         <hr class="w-full my-4 border-gray-300" />
                     </div>
                 </div>
+                <div class="ml-6 mb-4 flex">
+                    <p class="text-base md:text-base font-semibold">
+                         Link Objek Wisata :  
+                    </p>
+                    <a href="{{ $daftar->link }}" class="underline decoration-sky-500  ml-2 text-blue-400 font-blue-200"> Kunjungi Web/IG {{ $daftar->nama }}</a>
+                </div>
                 <div class="flex">
                     <div class="ml-6 text-lg">
                         <h6 class="mb-2 font-semibold leading-5">Deskripsi :</h6>
@@ -99,16 +105,10 @@
                 @endforeach
             </div>
         </div>
-        <div class="mt-3" id="mapid">
+
+        <div class="mt-4">
+    <div id="mapid" data-longitude="{{ $daftar->longitude }}" data-latitude="{{ $daftar->latitude }}"></div>
+</div>
     </div>
-    <script>
-        let latLng = [4.61970103, 96.9053123];
-        var mymap = L.map('mapid').setView(latLng, 11);
-        L.tileLayer(
-            'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-                    'Imagery © <a href="https://www.mapbox.com/">Leaflet</a>',
-                id: 'mapbox/streets-v11',
-            }).addTo(mymap);
-    </script>
+   
 @endsection

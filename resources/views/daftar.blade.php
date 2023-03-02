@@ -2,7 +2,7 @@
 
 @section('isi')
     <h1 class="text-2xl mt-4 ml-4 font-semibold"> Daftar Wisata Aceh Tengah </h1>
-    <form class="flex justify-end" action="/daftar">
+    <form class="flex justify-end" action="/tambah">
         <div class="absolute border-2 rounded-btn mt-1 md:w-30 lg:w-1/4">
             <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                 <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"

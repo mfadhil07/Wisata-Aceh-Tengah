@@ -1,5 +1,4 @@
 @extends('layouts.main')
-
 @section('isi')
     {{-- CARD --}}
     <h1 class="font-sans text-black text-2xl ml-8 mt-2 font-bold"> Info Wisata Aceh Tengah</h1>

@@ -24,20 +24,20 @@ Route::get('/det/{id}', [DaftarController::class, 'detail']);
 Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
-Route::get('/logout', [LoginController::class, 'logout']);
-Route::get('/test', [LoginController::class, 'test']);
+// Route::get('/test', [LoginController::class, 'test']);
 Route::post('/login', [LoginController::class, 'store']);
+Route::get('/logout', [LoginController::class, 'logout']);
 
 //Admin
 Route::get('/dashboard', [AdminController::class, 'index'])->middleware('auth');
 Route::resource('/a_daftar', DashboardController::class)->middleware('auth');
-Route::get('/a_daftar/tambah_pengunjung/{id}', [DashboardController::class, 'tambah_pengunjung'])->middleware('auth');
+// Route::get('/a_daftar/tambah_pengunjung/{id}', [DashboardController::class, 'tambah_pengunjung'])->middleware('auth');
 Route::get('/a_daftar/tambah_image/{id}', [DashboardController::class, 'tambah_image'])->middleware('auth');
-Route::post('/a_daftar/update_pengunjung', [DashboardController::class, 'update_pengunjung'])->middleware('auth');
+// Route::post('/a_daftar/update_pengunjung', [DashboardController::class, 'update_pengunjung'])->middleware('auth');
 Route::get('/a_maps', [AdminController::class, 'maps'])->middleware('auth');
 Route::get('/a_rute', [AdminController::class, 'rute']);
 Route::resource('/a_info', AinfoController::class)->middleware('auth');
-Route::get('/dashboard/profile', [DashboardController::class, 'profile'])->middleware('auth');
+// Route::get('/dashboard/profile', [DashboardController::class, 'profile'])->middleware('auth');
 Route::post('/vote', [DashboardController::class, 'vote']);
 Route::get('/detail/{id}', [DashboardController::class, 'detail']);
 Route::get('/detail_lokasi/{id}', [AdminController::class, 'detail_lokasi']);

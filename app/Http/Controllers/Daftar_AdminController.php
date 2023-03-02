@@ -24,30 +24,7 @@ class Daftar_AdminController extends Controller
         ]);
     }
 
-    // public function tambah(Request $request)
-    // {
-    //     return view('admin.addata', [
-    //         'active' => 'daftar',
-    //         'title' => 'Tambah Data',
-    //     ]);
-    // }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([

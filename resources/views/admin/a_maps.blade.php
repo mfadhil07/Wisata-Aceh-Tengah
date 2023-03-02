@@ -13,6 +13,7 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
 <link rel="stylesheet" href="leaflet-search/src/leaflet-search.css" />
+<link rel="stylesheet" href="{{ asset('leaflet-compass-master/src/leaflet-compass.css') }}" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="leaflet-routing/dist/leaflet-routing-machine.js"></script>
@@ -36,7 +37,7 @@
     <section class="flex flex-row">
         @auth
             @if(auth()->user()->role == 1)
-                <nav class="h-screen hidden lg:block shadow-lg relative w-14 mr-4">
+                <nav class="h-screen hidden lg:block shadow-lg relative w-14 pr-14">
                     <div class="fixed flex flex-col top-0 left-0 w-18 bg-gray-100 h-full border-2 mr-6">
                         <a href="/dashboard"
                             class=" border-b-2 border-transparent hover:border-blue-500 mx-0 sm:mx-3 mt-20 mb-3  {{ $active === 'home' ? 'active: bg-green-600' : '' }}"
@@ -98,7 +99,7 @@
             @endif
 
             @if(auth()->user()->role == 2)
-                <nav class="h-screen hidden lg:block shadow-lg relative w-14 mr-4">
+                <nav class="h-screen hidden lg:block shadow-lg relative w-14 pr-14">
                     <div class="fixed flex flex-col top-0 left-0 w-18 bg-gray-100 h-full border-2 mr-6">
                         <a href="/dashboard"
                             class=" border-b-2 border-transparent hover:border-blue-500 mx-0 sm:mx-3 mt-20 mb-3  {{ $active === 'dashboard' ? 'active: bg-green-600' : '' }}"
@@ -157,7 +158,7 @@
                 </nav>
             @endif
             <div class="flex flex-col md:flex-row lg:w-full">
-                <div class="order-last md:order-first w-100 md:w-1/3">
+                <div class="order-last md:order-first w-100 md:w-1/4 md:mr-16">
                     {{-- modal --}}
                     <div class="flex flex-row">
                         <div class="flex flex-wrap">
@@ -223,11 +224,11 @@
                         </form>
                     </div>
                     <div id="lokasi" class="ml-3">
-                        @if(count($daftar) =='null')
-                    <div class="mt-2 h-50 w-30 border-2 border-black rounded-lg pr-3">
-                    <p class="font-semibold">Tidak Ada Objek Wisata Yang Di Temukan</p>
-                    </div>
-                    @else
+                            @if(count($daftar) =='null')
+                        <div class="mt-2 h-50 w-30 border-2 border-black rounded-lg pr-3">
+                        <p class="font-semibold">Tidak Ada Objek Wisata Yang Di Temukan</p>
+                        </div>
+                        @else
                         @foreach($daftar as $item)
                             <div style="width: 350px;" class="mt-2 h-30 border-2 border-gray-500 rounded-lg pr-1" >
                                 <img style="width: 690px !important;" class="px-1 py-1"
@@ -335,9 +336,9 @@
                                 <!--body-->
                                 <div class="relative p-6 flex-auto">
                                     <p class="my-4 text-slate-500 text-lg leading-relaxed">
-                                        1. Tentukan lokasi anda saat ini dengan klik *lihat lokasi anda* dan pindahkan *Marker biru* dan arah ke titik lokasi anda.  <br>
-                                        2. Cari tujuan di dalam map dengan keyword nama objek wisata atau pilih tujuan di marker merah pada peta <br>
-                                        3. Klik marker merah akan muncul pop up, dan tekan Pilih Ke Sini<br>
+                                        1. Tentukan lokasi anda dengan menekan tombol mulai dari posisi anda atau mengeser marker biru yang ada di peta.<br>
+                                        2. Anda bisa mencari tujuan dengan mencari  nama Objek Wisata, Desa, Kecamatan atau Kategori Wisata dan menekan tombol rute untuk melakukan Routing dari lokasi Anda <br>
+                                        3. Anda juga bisa mengklik marker merah akan muncul pop up, dan tekan pilih kesini untuk melakukan Rute.<br>
                                         4. Selesai <br>
                                     </p>
                                 </div>
@@ -353,7 +354,7 @@
                         </div>
                     </div>
                     </div class="mt-2">
-                    <div class="z-10" style="position:relative; height: 580px; width: 100%;" id="mapid"></div>
+                    <div class="z-10" style="position:relative; height: 580px; width: 95%;" id="mapid"></div>
                 </div>
 
                 <!-- Put this part before </body> tag -->
@@ -368,17 +369,17 @@
                             <div class="w-full mt-10">
                                 <input type="range" min="1" max="5" value="1" class="range" step="1" name="skor" />
                                 <div class="w-full flex justify-between text-xs px-2">
-                                    <span>1 <br> <p class="mt-1"> Sangat Buruk</p></span>
+                                    <span>1 <br> <p class="mt-1">Buruk</p></span>
                                     <span>2</span>
                                     <span>3</span>
                                     <span>4</span>
-                                    <span>5 <br> <p class="mt-1"> Sangat Bagus </p></span> 
+                                    <span>5 <br> <p class="mt-1">Bagus</p></span> 
                                 </div>
                             </div>
                             <div class="flex justify-center">
                                 <div class="flex mb-10 mt-16">
                                     <button
-                                        class="w-full bg-green-500 text-gray-100 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-20 inline-flex items-center">
+                                        class="bg-green-500 text-gray-100 font-bold rounded border-b-2 rounded-full border-green-500 hover:border-green-700 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
                                         <span class="ml-2">Vote</span>
                                     </button>
                                 </div>
@@ -393,6 +394,7 @@
 <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js" charset="utf-8"></script>
 <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 <script src="leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+<script src="{{ asset('leaflet-compass-master/src/leaflet-compass.js')}}"></script>
 <script type="text/javascript" src="js/kec.js"> </script>
 <script type="text/javascript">
     //voting
@@ -421,7 +423,7 @@
     }
 
     let latLng = [4.61970103, 96.9053123];
-    var mymap = L.map('mapid').setView(latLng, 11);
+    var mymap = L.map('mapid').setView(latLng, 10);
 
     L.tileLayer(
         'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -443,6 +445,11 @@
         query = `?search=${kategori}`
     }
 
+    // console.log(query);
+ //compass
+ var comp = new L.Control.Compass({autoActive: true, showDigit:true});
+    mymap.addControl(comp);
+    
     $.ajax({
         url: 'http://127.0.0.1:8000/json' + query,
         success: function (response) {
@@ -604,14 +611,6 @@ function getLocation() {
         <p class="text-gray-900  text-2sm"> Fasilitas Wisata </p>
         <p class="text-gray-900  text-sm"> ${response.fasilitasString} </p>
     </div>
-                 <div class="pt-0 mt-2 ml-2">
-                            <div class="flex items-center">
-                                <div class="flex items-center w-24">
-                                    ${printRating(response.skor)}
-                                    ${printSisa(response.sisa)}
-                                </div>
-                            </div>
-                </div>
     <div class="stat mt-0 ">
                             <div class="flex justify-end">
                                 <!-- The button to open modal -->
@@ -629,13 +628,13 @@ function getLocation() {
             }
         })
     }
-    $(document).on('click', '.btn-rute', function (e) {
-        e.preventDefault()
-        const lat = $(this).data('lat')
-        const long = $(this).data('long')
-        const latlng = [lat, long]
-        control.spliceWaypoints(control.getWaypoints().length - 1, 1, latlng);
-    })
+    // $(document).on('click', '.btn-rute', function (e) {
+    //     e.preventDefault()
+    //     const lat = $(this).data('lat')
+    //     const long = $(this).data('long')
+    //     const latlng = [lat, long]
+    //     control.spliceWaypoints(control.getWaypoints().length - 1, 1, latlng);
+    // })
 </script>
 
 </html>

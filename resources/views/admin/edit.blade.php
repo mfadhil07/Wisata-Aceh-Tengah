@@ -39,7 +39,7 @@
     <div class="grid grid-cols-2 gap-1 ml-10 mt-2">
         <div>
             <label class="label">
-                <span class="label-text ml-2 font-bold">Nama Objek Wisata</span>
+                <span class="label-text ml-2 font-bold">Nama Objek Wisata <span style="color:red"> &#x26B9;</span></span>
             </label>
             <input type="text" placeholder="Nama Objek Wisata" name="nama" id="nama"
                 class="input input-accent input-bordered w-80 @error('nama') is-invalid @enderror"
@@ -52,7 +52,7 @@
         </div>
         <div class="">
             <label class="label">
-                <span class="label-text ml-2 font-bold">Kecamatan</span>
+                <span class="label-text ml-2 font-bold">Kecamatan <span style="color:red"> &#x26B9;</span></span>
             </label>
             <select name="kecamatan" id="kecamatan" class="select select-bordered w-80"
                 value="{{ $daftar->kecamatan }}">
@@ -78,10 +78,9 @@
                 </div>
             @enderror
         </div>
-
         <div>
             <label class="label mt-2">
-                <span class=" label-text ml-2 font-bold">Desa</span>
+                <span class=" label-text ml-2 font-bold">Desa <span style="color:red"> &#x26B9;</span></span>
             </label>
             <input type="text" placeholder="Desa" id="desa" name="desa"
                 class="input input-accent input- w-80 @error('desa') is-invalid @enderror"
@@ -95,7 +94,7 @@
 
         <div>
             <label class="label mt-2">
-                <span class=" label-text ml-2 font-bold">Latitude</span>
+                <span class=" label-text ml-2 font-bold">Latitude <span style="color:red"> &#x26B9;</span></span>
             </label>
             <input type="text" placeholder="Latitude" name="latitude" id="latitude"
                 class="input input-accent input- w-80 @error('latitude') is-invalid @enderror"
@@ -110,7 +109,7 @@
         <div>
 
             <label class="label mt-2">
-                <span class="label-text ml-2">Longitude</span>
+                <span class="label-text ml-2">Longitude <span style="color:red"> &#x26B9;</span></span>
             </label>
             <input type="text" placeholder="Longitude" name="longitude" id="longitude"
                 class="input input-accent input- w-80 @error('longitude') is-invalid @enderror"
@@ -124,7 +123,7 @@
 
         <div class="">
             <label class="label mt-2">
-                <span class=" label-text ml-2 font-bold">Jam Buka - Tutup</span>
+                <span class=" label-text ml-2 font-bold">Jam Buka - Tutup <span style="color:red"> &#x26B9;</span></span>
             </label>
             <input type="text" placeholder="Jam Buka - Tutup" name="jam" id="jam"
                 class="input input-bordered input-accent input- w-80 @error('jam') is-invalid @enderror"
@@ -137,7 +136,7 @@
         </div>
         <div class="">
             <label class="label mt-2">
-                <span class=" label-text ml-2 font-bold">Hari Buka</span>
+                <span class=" label-text ml-2 font-bold">Hari Buka <span style="color:red"> &#x26B9;</span></span>
             </label>
             <input type="text" placeholder="hari Buka" name="hari" id="hari"
                 class="input input-bordered input-accent input- w-80 @error('hari') is-invalid @enderror"
@@ -150,7 +149,7 @@
         </div>
         <div class="">
             <label class="label mt-2">
-                <span class=" label-text ml-2 font-bold">Harga Tiket</span>
+                <span class=" label-text ml-2 font-bold">Harga Tiket <span style="color:red"> &#x26B9;</span></span>
             </label>
             <select name="tiket" id="tiket" class="select max-w-xs select-accent w-80" value="">
                 <option value="{{ $daftar->tiket }}"> {{ $daftar->tiket }} </option>
@@ -169,7 +168,7 @@
             @enderror
         </div>
         <div class="mt-8">
-            <h2>Fasilitas Wisata</h2>
+            <h2>Fasilitas Wisata <span style="color:red"> &#x26B9;</span></h2>
             @foreach($fasilitas as $f)
                 {{-- <option value="{{ $f['id'] }}">
                 {{ $f['fasilitas'] }}</option> --}}
@@ -193,7 +192,7 @@
         </div>
         <div class="mt-2">
             <label class="label ">
-                <span class="label-text ml-2 font-bold">Kategori Wisata</span>
+                <span class="label-text ml-2 font-bold">Kategori Wisata <span style="color:red"> &#x26B9;</span></span>
             </label>
             <select name="kategori" id="kategori" class="select max-w-xs select-accent w-80 value="
                 {{ $daftar->kategori }}">
@@ -213,9 +212,22 @@
                 </div>
             @enderror
         </div>
+        <div class="">
+            <label class="label mt-2">
+                <span class=" label-text ml-2 font-bold">Link Website atau Instagram </span>
+            </label>
+            <input type="text" placeholder="https://id.wikipedia.org/wiki/Kabupaten_Aceh_Tengah" name="link" id="link"
+                class="input input-bordered input-accent input- w-80 @error('link') is-invalid @enderror"
+                value={{ $daftar->link }}>
+            @error('link')
+                <div>
+                    <label class="text-red-700">{{ $message }}</label>
+                </div>
+            @enderror
+        </div>
         <div class="mt h-40 w-80">
             <label class="label mt-2">
-                <span class=" label-text ml-2 font-bold">Deskripsi</span>
+                <span class=" label-text ml-2 font-bold">Deskripsi <span style="color:red"> &#x26B9;</span></span>
             </label>
             <textarea name="deskripsi" id="deskripsi" placeholder="Deskripsi" cols="30" rows="4"
                 class="input input-bordered input-accent input- h-40 w-80 @error('deskripsi') is-invalid @enderror">{{ $daftar->deskripsi }}</textarea>
@@ -228,7 +240,7 @@
 
         <div class="mt-4">
             <div class="mb-3 w-60">
-                <label for="img" class="form-label inline-block mb-2 text-gray-700"> Pilih Foto</label>
+                <label for="img" class="form-label inline-block mb-2 text-gray-700"> Pilih Foto <span style="color:red"> &#x26B9;</span></label>
                 <img name="img" class="img-preview"
                     src="{{asset('/storage/'.$daftar->img) }}">
                 <input name="img" onchange="previewImage()"
@@ -300,19 +312,19 @@
         const checkbox = document.getElementById("flexCheckIndeterminate");
         checkbox.indeterminate = true;
 
-        function previewImage() {
-            const img = document.querySelector('#img');
-            const imgPreview = document.querySelector('img-preview');
+            function previewImage() {
+                const img = document.querySelector('#img');
+                const imgPreview = document.querySelector('img-preview');
 
-            imgPreview.style.display = 'block';
+                imgPreview.style.display = 'block';
 
-            const oFrReader = new FileReader();
-            ofReader.readAsDataURL(img.files[0]);
+                const oFrReader = new FileReader();
+                ofReader.readAsDataURL(img.files[0]);
 
-            oFrReader.onLoad = function (ofREvent) {
-                imgPreview.src = ofREvent.target.result;
+                oFrReader.onLoad = function (ofREvent) {
+                    imgPreview.src = ofREvent.target.result;
+                }
             }
-        }
 
         function previewImage() {
             const img = document.querySelector('#img');
