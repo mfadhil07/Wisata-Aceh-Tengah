@@ -331,15 +331,12 @@
         document.getElementById(dropdownID).classList.toggle("block");
     }
 
-    let latLng = [4.61270103, 96.923123];
+    let latLng = [4.61970103, 96.9053123];
     var mymap = L.map('mapid').setView(latLng, 11);
 
-    L.tileLayer(
-        'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-                'Imagery © <a href="https://www.mapbox.com/">Leaflet</a>',
-            id: 'mapbox/streets-v11',
-        }).addTo(mymap);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mymap);
     var smallIcon = new L.Icon({
         iconSize: [30, 30],
         iconAnchor: [13, 27],
@@ -356,9 +353,6 @@
       styles: [{color: 'blue', opacity: 1, weight: 5}]
    }
     }).addTo(mymap);
-
-    let circle = L.circle([4.61270103, 96.923123], 
-    {radius: 2000}).addTo(mymap);
 
     $(document).on("click", ".keSini", function () {
         const lat = $(this).data('lat')
@@ -559,5 +553,4 @@ var kecamatan = L.geoJSON(kecamatan, {
         control.spliceWaypoints(control.getWaypoints().length - 1, 1, latlng);
     })
 </script>
-
 </html>
